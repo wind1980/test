@@ -1,9 +1,15 @@
+# Gli script singoli li ho già nella cartella script ma li ho ripetuti anche in questo.
+# Il problema è che facendo un test lasciando lo script da servizi mi esegue solamente la versione standard mentre anche 
+# adesso essendo prima delel 23.59 avrebbe dovuto fare la versione DAY...dove sbaglio?! Grazie!
+
+
+
 tv_sala_master:
   alias: tv_sala_master
   sequence:
     - service_template: >
         {% set current_time = states('sensor.time') %}
-        {% if '08:01' < current_time  < '10:00' %}
+        {% if '08:01' < current_time  < '23:59' %}
           script.tv_sala_on_day
         {% else %}
           script.tv_sala_on
