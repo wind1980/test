@@ -1,0 +1,94 @@
+tv_sala_master:
+  alias: tv_sala_master
+  sequence:
+    - service_template: >
+        {% set current_time = states('sensor.time') %}
+        {% if '08:01' < current_time  < '10:00' %}
+          script.tv_sala_on_day
+        {% else %}
+          script.tv_sala_on
+        {% endif %}
+
+tv_sala_on_day:
+  alias: 'TV SALA ON DAY'
+  sequence:
+   - service: switch.turn_on
+     entity_id: switch.ciabatta
+   - delay: 00:00:05 
+   - service: remote.send_command
+     data:
+       entity_id: remote.rm_pro_sala_remote
+       device: TV SALA
+       command: Turn on
+   - delay: 00:00:02
+   - service: remote.send_command
+     data:
+        entity_id: remote.rm_pro_sala_remote
+        device: SOUNDBAR
+        command: Turn on
+   - delay: 00:00:08
+   - service: remote.send_command
+     data:
+         entity_id: remote.rm_pro_sala_remote
+         device: SOUNDBAR
+         command: Minus much
+         num_repeats: 2
+   - delay: 00:00:05
+   - service: remote.send_command
+     data:
+         entity_id: remote.rm_pro_sala_remote
+         device: SOUNDBAR
+         command: Plus1
+         num_repeats: 8
+   - delay: 00:00:02
+   - service: remote.send_command
+     data:
+         entity_id: remote.rm_pro_sala_remote
+         device: DECODER
+         command: SKY
+
+tv_sala_on:
+  alias: 'TV SALA ON'
+  sequence:
+   - service: switch.turn_on
+     entity_id: switch.ciabatta
+   - delay: 00:00:05 
+   - service: remote.send_command
+     data:
+       entity_id: remote.rm_pro_sala_remote
+       device: TV SALA
+       command: Turn on
+   - delay: 00:00:02
+   - service: remote.send_command
+     data:
+        entity_id: remote.rm_pro_sala_remote
+        device: SOUNDBAR
+        command: Turn on
+   - delay: 00:00:08
+   - service: remote.send_command
+     data:
+         entity_id: remote.rm_pro_sala_remote
+         device: SOUNDBAR
+         command: Minus much
+         num_repeats: 2
+   - delay: 00:00:05
+   - service: remote.send_command
+     data:
+         entity_id: remote.rm_pro_sala_remote
+         device: SOUNDBAR
+         command: Plus1
+         num_repeats: 8
+   - delay: 00:00:02
+   - service: remote.send_command
+     data:
+         entity_id: remote.rm_pro_sala_remote
+         device: DECODER
+         command: SKY
+   - delay: 00:00:02 
+   - service: remote.send_command
+     data:
+        entity_id: remote.rm_pro_sala_remote
+        device: LED DIVANO
+        command: Turn on
+          
+
